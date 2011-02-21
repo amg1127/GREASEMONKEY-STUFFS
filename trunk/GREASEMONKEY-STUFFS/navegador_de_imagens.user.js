@@ -3,6 +3,7 @@
 // @namespace      http://localhost
 // @description    Script para facilitar a navegacao de paginas com muitas fotos
 // @include        *
+// @exclude        http://maps.google.com/*
 // ==/UserScript==
 
 var navegaimg_imgpos = 0;
@@ -286,6 +287,8 @@ function navegaimg_timertimeout () {
     }
 }
 
-window.addEventListener ("load", navegaimg_onload_func, true);
-GM_registerMenuCommand ("Ativar botões de navegação de imagens", navegaimg_onload_func);
-GM_registerMenuCommand ("Desativar botões de navegação de imagens", navegaimg_onunload_func);
+if (window.location.href == window.top.location.href) {
+    window.addEventListener ("load", navegaimg_onload_func, true);
+    GM_registerMenuCommand ("Ativar botões de navegação de imagens", navegaimg_onload_func);
+    GM_registerMenuCommand ("Desativar botões de navegação de imagens", navegaimg_onunload_func);
+}
