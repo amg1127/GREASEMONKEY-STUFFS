@@ -16,6 +16,8 @@ var navegaimg_timeout = false;
 var navegaimg_dimensoes = new Array ();
 var navegaimg_referencia = document.documentElement;
 var navegaimg_naochamou = true;
+var navegaimg_minwidth = 480;
+var navegaimg_minheight = 360;
 
 function navegaimg_mostraimg (elemento) {
     elemento.scrollIntoView (true);
@@ -99,7 +101,7 @@ function navegaimg_btnlast_click () {
 }
 
 function navegaimg_validaimagem (elemento) {
-    return (elemento.offsetWidth >= 480 || elemento.offsetHeight >= 360);
+    return (elemento.offsetWidth >= navegaimg_minwidth || elemento.offsetHeight >= navegaimg_minheight);
 }
 
 function navegaimg_imgmaisperto (px, py) {
@@ -195,7 +197,7 @@ function navegaimg_onload_func () {
 }
 
 function navegaimg_btnredim_click () {
-    var i, dime, img, ratiox, ratioy, wjan, hjan, c, posic, taxa;
+    var i, dime, img, ratiox, ratioy, wjan, hjan, c, posic, taxa, tole;
     pxc = navegaimg_referencia.scrollLeft;
     pyc = navegaimg_referencia.scrollTop;
     posic = navegaimg_imgmaisperto (pxc, pyc);
@@ -222,8 +224,15 @@ function navegaimg_btnredim_click () {
             // taxa = 1 / 1.25;
             taxa = 1.0;
             if (navegaimg_validaimagem (navegaimg_referencia)) {
+                tole = 10;
                 wjan = navegaimg_referencia.clientWidth;
+                if (wjan < (navegaimg_minwidth + tole)) {
+                    wjan = (navegaimg_minwidth + tole);
+                }
                 hjan = navegaimg_referencia.clientHeight;
+                if (hjan < (navegaimg_minheight + tole)) {
+                    hjan = (navegaimg_minheight + tole);
+                }
                 navegaimg_redimed = true;
                 document.getElementById('navegaimg_btnredim').value = 'Restore image sizes';
                 navegaimg_dimensoes = new Array();
