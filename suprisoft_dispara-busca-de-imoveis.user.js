@@ -27,7 +27,7 @@ var dispara_busca_dos_imoveis_contaTipo;
 var dispara_busca_dos_imoveis_contaDormitorio;
 var dispara_busca_dos_imoveis_contaBairro;
 
-var dispara_busca_dos_imoveis_timeout = 2000;
+var dispara_busca_dos_imoveis_timeout = 1000;
 
 var dispara_busca_dos_imoveis_automatico_str = "#DISPARA_BUSCAS_AUTOMATICAMENTE";
 
@@ -61,13 +61,15 @@ function dispara_busca_dos_imoveis_teste_sanidade () {
 
 function dispara_busca_dos_imoveis_btn_click () {
     var botaum = document.getElementById ("dispara_busca_dos_imoveis_btn");
-    if (dispara_busca_dos_imoveis_sel_item (dispara_busca_dos_imoveis_cmbTipo, dispara_busca_dos_imoveis_strings_tipo[0], true)) {
-        botaum.disabled = true;
-        botaum.value = "Disparando buscas dos imoveis...";
-        dispara_busca_dos_imoveis_contaTipo = 0;
-        dispara_busca_dos_imoveis_contaDormitorio = 0;
-        dispara_busca_dos_imoveis_contaBairro = 0;
-        window.setTimeout (dispara_busca_dos_imoveis_interacao, dispara_busca_dos_imoveis_timeout);
+    if (! botaum.disabled) {
+        if (dispara_busca_dos_imoveis_sel_item (dispara_busca_dos_imoveis_cmbTipo, dispara_busca_dos_imoveis_strings_tipo[0], true)) {
+            botaum.disabled = true;
+            botaum.value = "Disparando buscas dos imoveis...";
+            dispara_busca_dos_imoveis_contaTipo = 0;
+            dispara_busca_dos_imoveis_contaDormitorio = 0;
+            dispara_busca_dos_imoveis_contaBairro = 0;
+            window.setTimeout (dispara_busca_dos_imoveis_interacao, dispara_busca_dos_imoveis_timeout);
+        }
     }
 }
 
@@ -188,11 +190,12 @@ function dispara_busca_dos_imoveis_onload_func () {
                 frm = document.getElementById (dispara_busca_dos_imoveis_formulario);
                 frm.target = '_blank';
                 frm.insertBefore (nobj, frm.firstChild);
-                dispara_busca_dos_imoveis_sel_item (dispara_busca_dos_imoveis_cmbGaragem, "com garagem", true);
+                // dispara_busca_dos_imoveis_sel_item (dispara_busca_dos_imoveis_cmbGaragem, "com garagem", true);
+                dispara_busca_dos_imoveis_sel_item (dispara_busca_dos_imoveis_cmbGaragem, "indiferente...", true);
                 dispara_busca_dos_imoveis_sel_item (dispara_busca_dos_imoveis_cmbValorInicial, "0", true);
                 dispara_busca_dos_imoveis_sel_item (dispara_busca_dos_imoveis_cmbValorFinal, "1.000,00", true);
                 if (window.location.hash == dispara_busca_dos_imoveis_automatico_str) {
-                    window.setTimeout (dispara_busca_dos_imoveis_btn_click, 15000);
+                    window.setTimeout (dispara_busca_dos_imoveis_btn_click, 5000);
                 }
             }
         } else {
