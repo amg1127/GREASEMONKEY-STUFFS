@@ -5,7 +5,7 @@
 // @include        https://mail.google.com/mail/*
 // ==/UserScript==
 
-var abreanuncioszap_magic = "http://www.zap.com.br/imoveis/detalhes.aspx?imovel=";
+var abreanuncioszap_magic = "http://www.zap.com.br/imoveis/oferta/";
 var abreanuncioszap_lenmagic = abreanuncioszap_magic.length;
 var abreanuncioszap_maxtents = 240;
 var abreanuncioszap_timeout = 500;
@@ -32,7 +32,7 @@ function abreanuncioszap_passo2 () {
         docu = window.frames[ifrno].document;
         lnkcorps = docu.getElementsByTagName ("A");
         for (lni = lnkcorps.length - 1; lni >= 0; lni--) {
-            if (lnkcorps[lni].innerHTML == "Settings") {
+            if (lnkcorps[lni].innerHTML == "Terms &amp; Privacy") {
                 abreanuncioszap_iframeno = ifrno;
                 GM_registerMenuCommand ("Abrir links de anuncios do ZAP", function () {
                     var alvos, i, l, lnk;
