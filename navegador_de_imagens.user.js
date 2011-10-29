@@ -296,8 +296,12 @@ function navegaimg_timertimeout () {
     }
 }
 
-if (window.location.href == window.top.location.href) {
-    window.addEventListener ("load", navegaimg_onload_func, true);
-    GM_registerMenuCommand ("Ativar botões de navegação de imagens", navegaimg_onload_func);
-    GM_registerMenuCommand ("Desativar botões de navegação de imagens", navegaimg_onunload_func);
+try {
+    if (window.location.href == window.top.location.href) {
+        window.addEventListener ("load", navegaimg_onload_func, true);
+        GM_registerMenuCommand ("Ativar botões de navegação de imagens", navegaimg_onload_func);
+        GM_registerMenuCommand ("Desativar botões de navegação de imagens", navegaimg_onunload_func);
+    }
+} finally {
+    ;
 }
