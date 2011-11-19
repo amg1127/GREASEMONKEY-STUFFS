@@ -9,7 +9,7 @@ function abreimagenszap_onloadfunc () {
     var oifr, intdoc, iimgs, l, i, olnk, colecs, inht, regexp, match, c;
     regexp = new RegExp ("^\\s*<a\\s+href=['\"]?#['\"]?\\s+onclick=['\"]showThis\\(['\"](https?://img\.zapcorp\.com\.br/[^'\"]+_grande.jpg)['\"]\\s*,", "i");
     colecs = new Array ();
-    oifr = document.getElementById ("ctl00_ContentPlaceHolder1_if_Carrossel");
+    oifr = document.getElementById ("ctl00_ContentPlaceHolder1_resumo_ucFotos_if_Carrossel");
     if (oifr) {
         if (oifr.tagName == "IFRAME") {
             intdoc = oifr.contentWindow;
