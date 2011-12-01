@@ -22,16 +22,29 @@ function trocalinks_onload_func () {
                     olnktrocar[olnk_l][0] = img.parentNode;
                     olnktrocar[olnk_l][1] = ourl2;
                     olnk_l++;
+                    continue;
+                }
+            }
+            // Ver se as imagens estao dentro de algum painel de galeria chato...
+            if (img.parentNode.tagName.toUpperCase() == 'DIV' && img.parentNode.className == 'panel') {
+                if (img.parentNode.parentNode.tagName.toUpperCase() == 'DIV' && img.parentNode.parentNode.className == 'galleryview') {
+                    olnktrocar[olnk_l] = new Array();
+                    olnktrocar[olnk_l][0] = img;
+                    olnktrocar[olnk_l][1] = null;
+                    olnk_l++;
+                    continue;
                 }
             }
         }
-        // for (i = 0; i < olnk_l; i++) {
         for (i = olnk_l - 1; i >= 0; i--) {
-            olnktrocar[i][0].innerHTML = "<img src='" + olnktrocar[i][1] + "' style='z-index: " + zind + ";'><br><br>\n";
+            if (olnktrocar[i][1]) {
+                olnktrocar[i][0].innerHTML = "<img src='" + olnktrocar[i][1] + "' style='z-index: " + zind + ";'>";
+            }
             for (papi = olnktrocar[i][0]; papi && papi.style; papi = papi.parentNode) {
                 papi.style.zIndex = zind;
             }
-            // document.body.appendChild (olnktrocar[i][0]);
+            document.body.insertBefore (document.createElement ("BR"), document.body.firstChild);
+            document.body.insertBefore (document.createElement ("BR"), document.body.firstChild);
             document.body.insertBefore (olnktrocar[i][0], document.body.firstChild);
         }
         trocalinks_naorodou = false;
