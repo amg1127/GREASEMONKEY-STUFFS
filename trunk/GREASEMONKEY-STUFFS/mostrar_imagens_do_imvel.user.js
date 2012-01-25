@@ -6,8 +6,12 @@
 // ==/UserScript==
 
 function abreimagenszap_onloadfunc () {
+    window.setTimeout (abreimagenszap_passo2, 1000);
+}
+
+function abreimagenszap_passo2 () {
     var oifr, intdoc, iimgs, l, i, colecs, inht, regexp, c;
-    regexp = new RegExp ("^https?://img\.zapcorp\.com\.br/.*/[a-fA-F0-9]+\.jpg$", "i");
+    regexp = new RegExp ("^https?://img\.zapcorp\.com\.br/.*/\\w+[^_][^Gg][^Rr][^Aa][^Nn][^Dd][^Ee]\.jpg$", "i");
     colecs = new Array ();
     iimgs = document.images;
     l = iimgs.length;
@@ -15,6 +19,22 @@ function abreimagenszap_onloadfunc () {
         inht = iimgs[i].src;
         if (regexp.test (inht)) {
             inht = inht.substring (0, inht.length - 4) + "_grande.jpg";
+            for (c = colecs.length - 1; c >= 0; c--) {
+                if (colecs[c] == inht) {
+                    break;
+                }
+            }
+            if (c < 0) {
+                colecs[colecs.length] = inht;
+            }
+        }
+    }
+    regexp = new RegExp ("^https?://img\.zapcorp\.com\.br/.*/\\w+_grande\.jpg$", "i");
+    iimgs = document.links;
+    l = iimgs.length;
+    for (i = 0; i < l; i++) {
+        inht = iimgs[i].href;
+        if (regexp.test (inht)) {
             for (c = colecs.length - 1; c >= 0; c--) {
                 if (colecs[c] == inht) {
                     break;
