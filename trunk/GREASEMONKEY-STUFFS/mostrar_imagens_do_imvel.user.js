@@ -6,12 +6,12 @@
 // ==/UserScript==
 
 function abreimagenszap_onloadfunc () {
-    window.setTimeout (abreimagenszap_passo2, 1000);
+    window.setTimeout (abreimagenszap_passo2, 5000);
 }
 
 function abreimagenszap_passo2 () {
     var oifr, intdoc, iimgs, l, i, colecs, inht, regexp, c;
-    regexp = new RegExp ("^https?://img\.zapcorp\.com\.br/.*/\\w+[^_][^Gg][^Rr][^Aa][^Nn][^Dd][^Ee]\.jpg$", "i");
+    regexp = new RegExp ("^https?://img\.zapcorp\.com\.br/.*\.jpg$", "i");
     colecs = new Array ();
     iimgs = document.images;
     l = iimgs.length;
@@ -29,7 +29,7 @@ function abreimagenszap_passo2 () {
             }
         }
     }
-    regexp = new RegExp ("^https?://img\.zapcorp\.com\.br/.*/\\w+_grande\.jpg$", "i");
+    regexp = new RegExp ("^https?://img\.zapcorp\.com\.br/.*_grande\.jpg$", "i");
     iimgs = document.links;
     l = iimgs.length;
     for (i = 0; i < l; i++) {
@@ -54,6 +54,7 @@ function abreimagenszap_passo2 () {
         document.body.insertBefore (iimgs, document.body.firstChild);
         iimgs = document.createElement ("img");
         iimgs.src = colecs[i];
+        iimgs.alt = colecs[i];
         document.body.insertBefore (iimgs, document.body.firstChild);
     }
 }
