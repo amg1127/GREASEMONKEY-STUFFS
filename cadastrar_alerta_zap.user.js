@@ -14,6 +14,9 @@ function alertazap_timeout () {
 
 function alertazap_onload () {
     var loca, matri, i, uarr, p;
+    if (document.body.innerHTML.indexOf ("Seu alerta foi cadastrado com sucesso seguindo os seguintes critérios:") >= 0) {
+        return;
+    }
     loca = window.location.hash;
     document.cookies = "";
     if (loca.substring (0, 1) == "#") {
@@ -70,7 +73,7 @@ function alertazap_processafila () {
         }
         alertazap_filajanela = arrtmp;
         window.open (fstjan);
-        alertazap_janelatimer = window.setTimeout (alertazap_processafila, alertazap_timeout ());
+        alertazap_janelatimer = window.setTimeout (alertazap_processafila, alertazap_timeout () * 3);
     } else {
         alertazap_janelatimer = 0;
         if (alertazap_fecharjanela) {
@@ -161,9 +164,14 @@ function alertazap_definevalor (nome, valor, posic) {
                         i = -1;
                     }
                     if (i >= 0) {
-                        seleiguals[i].selected = true;
-                        alertazap_invocachanged (elem[1]);
-                        return (0);
+                        if (seleiguals[i].value) {
+                            seleiguals[i].selected = true;
+                            alertazap_invocachanged (elem[1]);
+                            return (0);
+                        } else {
+                            window.alert ("Erro[8] ao definir o valor '" + valor + "' para o campo de nome '" + nome + "'!");
+                            return (-1);
+                        }
                     } else {
                         return (ll);
                     }
@@ -324,6 +332,17 @@ function alertazap_abrebairro (cidade, bairro, email, nomealerta) {
     alertazap_campos[3][1] = "Casa Padrão";
     
     alertazap_openquery ();
+    
+    alertazap_campos[1][1] = nomealerta + "k";
+    alertazap_campos[2][1] = "Apartamento";
+    alertazap_campos[3][1] = "Kitchenette/Conjugados";
+    
+    alertazap_openquery ();
+    alertazap_campos[1][1] = nomealerta + "f";
+    alertazap_campos[2][1] = "Flat/ ApartHotel";
+    alertazap_campos[3][1] = "Flat";
+    
+    alertazap_openquery ();
 }
 
 function alertazap_openquery () {
@@ -372,6 +391,7 @@ function alertazap_passo2 () {
     for (i = 0; i < lenrio; i++) {
         alertazap_abrebairro ("rio de janeiro", lbrio[i], "nonegziste@mailinator.com", "al" + (++lentot));
     }
+    return;
     for (i = 0; i < lennit; i++) {
         alertazap_abrebairro ("niteroi", lbnit[i], "nonegziste@mailinator.com", "al" + (++lentot));
     }
@@ -445,5 +465,11 @@ function alertazap_passo3 () {
     }
 }
 
-window.addEventListener ("load", alertazap_onload, true);
-GM_registerMenuCommand ("Disparar cadastro de alertas ZAP", alertazap_passo1);
+if (document.readyState == "complete") {
+    alertazap_onload ();
+} else {
+    window.addEventListener ("load", alertazap_onload, true);
+}
+if (GM_registerMenuCommand) {
+    GM_registerMenuCommand ("Disparar cadastro de alertas ZAP", alertazap_passo1);
+}
