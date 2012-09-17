@@ -3,6 +3,7 @@
 // @namespace      http://localhost/
 // @description    Abre a portaria do DETRAN especificada no comando
 // @include        http://www.detran.rs.gov.br/*
+// @grant          GM_registerMenuCommand
 // ==/UserScript==
 
 var abrirportar = "abrirportariaautomaticamente";

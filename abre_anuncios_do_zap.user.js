@@ -3,13 +3,14 @@
 // @namespace      http://localhost
 // @description    Abrir todos os anuncios do ZAP encontrados no e-mail
 // @include        https://mail.google.com/mail/*
+// @grant          GM_registerMenuCommand
 // ==/UserScript==
 
 var abreanuncioszap_magic = new Array ();
 abreanuncioszap_magic[0] = "http://www.zap.com.br/imoveis/oferta/";
 abreanuncioszap_magic[1] = "http://www.zap.com.br/imoveis/cadastro-alerta.aspx?";
 var abreanuncioszap_maxtents = 240;
-var abreanuncioszap_timeout = 500;
+var abreanuncioszap_timeout = 1000;
 var abreanuncioszap_tents = abreanuncioszap_maxtents;
 var abreanuncioszap_iframeno = -1;
 var abreanuncioszap_pendente = true;

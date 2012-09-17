@@ -3,13 +3,14 @@
 // @namespace      http://localhost
 // @description    Maneira de automatizar o cadastro de alertas do ZAP
 // @include        http://www.zap.com.br/imoveis/cadastro-alerta.aspx*
+// @grant          GM_registerMenuCommand
 // ==/UserScript==
 
 var alertazap_poscampo, alertazap_campos, alertazap_listacampos, alertazap_tentadenovo, alertazap_ultimoIncremento;
 var alertazap_filajanela, alertazap_janelatimer, alertazap_fecharjanela;
 
 function alertazap_timeout () {
-    return (Math.round(Math.random() * 3500 + 500));
+    return (Math.round(Math.random() * 2000 + 500));
 }
 
 function alertazap_onload () {
@@ -342,7 +343,7 @@ function alertazap_abrebairro (cidade, bairro, email, nomealerta) {
     alertazap_campos[2][1] = "Flat/ ApartHotel";
     alertazap_campos[3][1] = "Flat";
     
-    alertazap_openquery ();
+//  alertazap_openquery ();
 }
 
 function alertazap_openquery () {
@@ -404,7 +405,7 @@ function alertazap_passo3 () {
             alertazap_definevalor ("optFreq", "1 vez por dia") == 0 &&
             alertazap_definevalor ("optTrans", "Locação") == 0 &&
             alertazap_definevalor ("txtMinVal", "1") == 0 &&
-            alertazap_definevalor ("txtMaxVal", "2.000") == 0) {
+            alertazap_definevalor ("txtMaxVal", "2.500") == 0) {
             alertazap_poscampo = 0;
             alertazap_ultimoIncremento = 0;
             alertazap_tentadenovo = 0;
