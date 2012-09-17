@@ -2,6 +2,7 @@
 // @name           Trocar links de imagem pelas imagens
 // @namespace      http://localhost
 // @description    Troca os links que apontam para imagens pelas imagens reais
+// @grant          GM_registerMenuCommand
 // ==/UserScript==
 
 var trocalinks_naorodou = true;
@@ -25,7 +26,7 @@ function trocalinks_onload_func () {
                     continue;
                 }
             }
-            // Ver se as imagens estao dentro de algum painel de galeria chato...
+            // Ver se as imagens estao dentro de alguma galeria chata...
             if (img.parentNode.tagName.toUpperCase() == 'DIV' && img.parentNode.className == 'panel') {
                 if (img.parentNode.parentNode.tagName.toUpperCase() == 'DIV' && img.parentNode.parentNode.className == 'galleryview') {
                     olnktrocar[olnk_l] = new Array();
@@ -94,5 +95,5 @@ function trocalinks_valida_endereco_imagem (imagem, link) {
     return (false);
 }
 
-window.addEventListener ("load", trocalinks_onload_func, true);
+// window.addEventListener ("load", trocalinks_onload_func, true);
 GM_registerMenuCommand ("Trocar links de imagens pelas imagens", trocalinks_onload_func);
