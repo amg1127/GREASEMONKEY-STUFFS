@@ -83,12 +83,28 @@ function trocalinks_valida_endereco_imagem_v2 (imagem, link) {
     return (false);
 }
 
+function trocalinks_valida_endereco_imagem_v3 (imagem, link) {
+    var regex_img, regex_link, match_img, match_link;
+    // imagem = http://www.servidor.com.br/pasta/WWWxHHHximagem-WWWxHHH.jpg.pagespeed.ic.LETRAS.jpg
+    // link   = http://www.servidor.com.br/pasta/imagem.jpg
+    regex_img = /\/\d+x\d+x([^\/]+)-\d+x\d+(\.[^\.\/]{3,4})\.pagespeed\.ic\.[^\.\/]+\.[^\.\/]{3,4}$/;
+    regex_link = /\/([^\/]+\.[^\.\/]{3,4})$/;
+    match_img = regex_img.exec (imagem);
+    match_link = regex_link.exec (link);
+    if (match_img && match_link)
+        return ((match_img[1] + match_img[2]) == match_link[1]);
+    return (false);
+}
+
 function trocalinks_valida_endereco_imagem (imagem, link) {
     if (imagem.indexOf ("'") < 0) {
         if (trocalinks_valida_endereco_imagem_v1 (imagem, link)) {
             return (true);
         }
         if (trocalinks_valida_endereco_imagem_v2 (imagem, link)) {
+            return (true);
+        }
+        if (trocalinks_valida_endereco_imagem_v3 (imagem, link)) {
             return (true);
         }
     }
